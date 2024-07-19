@@ -77,18 +77,41 @@ impl<'a> Parser<'a> {
         Some(left)
     }
 
+    // fn mul_div(&mut self) -> Option<Expr> {
+    //     let mut left = self.factor()?;
+
+    //     while matches!(self.current_token, Token::Into | Token::By) {
+    //         let op = self.current_token.clone();
+    //         self.next_token();
+    //         let right = self.factor()?;
+    //         left = Expr::BinaryOp(Box::new(left), self.op_from_token(op), Box::new(right));
+    //     }
+
+    //     Some(left)
+    // }
+
     fn mul_div(&mut self) -> Option<Expr> {
         let mut left = self.factor()?;
-
+    
         while matches!(self.current_token, Token::Into | Token::By) {
             let op = self.current_token.clone();
             self.next_token();
             let right = self.factor()?;
+    
+            // Check for division by zero
+            if let Token::By = op {
+                if let Expr::Number(0) = right {
+                    println!("Error: Division by zero is not possible.");
+                    return None;
+                }
+            }
+    
             left = Expr::BinaryOp(Box::new(left), self.op_from_token(op), Box::new(right));
         }
-
+    
         Some(left)
     }
+    
 
     fn factor(&mut self) -> Option<Expr> {
         match self.current_token {
