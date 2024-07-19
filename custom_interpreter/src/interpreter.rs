@@ -20,10 +20,10 @@ impl Interpreter {
                 let left_val = self.interpret(*left)?;
                 let right_val = self.interpret(*right)?;
                 Some(match op {
-                    Op::Add => left_val + right_val,
-                    Op::Sub => left_val - right_val,
-                    Op::Mul => left_val * right_val,
-                    Op::Div => left_val / right_val,
+                    Op::Plus => left_val + right_val,
+                    Op::Minus => left_val - right_val,
+                    Op::Into => left_val * right_val, // Updated operator
+                    Op::By => left_val / right_val,   // Updated operator
                 })
             }
             Expr::Assign(var, expr) => {

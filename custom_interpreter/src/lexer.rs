@@ -2,10 +2,12 @@
 pub enum Token {
     Assume,
     Eq,
-    Add,
-    Sub,
-    Mul,
-    Div,
+    Plus,
+    Minus,
+    Into,
+    By,
+    LParen,
+    RParen,
     Number(i64),
     Identifier(String),
     EndOfFile,
@@ -43,21 +45,29 @@ impl<'a> Lexer<'a> {
                 }
                 Token::Invalid
             }
-            '+' => {
+            'p' => {
                 self.advance();
-                return Token::Add;
+                return Token::Plus;
             }
-            '-' => {
+            'm' => {
                 self.advance();
-                return Token::Sub;
+                return Token::Minus;
             }
-            '*' => {
+            'i' => {
                 self.advance();
-                return Token::Mul;
+                return Token::Into;
             }
-            '/' => {
+            'b' => {
                 self.advance();
-                return Token::Div;
+                return Token::By;
+            }
+            '(' => {
+                self.advance();
+                return Token::LParen;
+            }
+            ')' => {
+                self.advance();
+                return Token::RParen;
             }
             '0'..='9' => return self.number(),
             'a'..='z' | 'A'..='Z' => return self.identifier(),
