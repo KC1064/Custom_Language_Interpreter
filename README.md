@@ -1,7 +1,10 @@
 # Custom_Language_Interpreter
 
 ## Demo Images
+### Image 1
 ![Image 1](./Screenshot%202024-10-21%20223850.png)
+
+### Image 2
 ![Image 2](./Screenshot%202024-10-21%20223940.png)
 
 
